@@ -1,0 +1,50 @@
+<mat-toolbar color="primary">
+    <button mat-button (click)="sidenav.open ()" ><mat-icon>menu</mat-icon></button>
+    <span>News Articles</span>  
+    <span class="example-spacer"></span>
+    <button mat-button [matMenuTriggerFor]="appMenu"><mat-icon>settings</mat-icon></button>
+</mat-toolbar>
+<mat-menu #appMenu="matMenu">
+  <a mat-menu-item href="/home"> Articles</a>
+  <a mat-menu-item href="/read-later"> Read Later</a>
+  <a mat-menu-item href="/profile"> Profile</a>
+  <a mat-menu-item href="/logout"> Logout </a>
+</mat-menu>
+<mat-sidenav-container class="example-container">
+
+  <mat-sidenav #sidenav class="example-sidenav">
+    <mat-list class="list-nav">
+        <mat-list-item class="list-item" *ngFor="let source of results" (click)="searchArticles(source.section);sidenav.close();">
+
+          <div mat-card-avatar class="example-header-image"></div>
+
+          <span class="source-name"> {{source.display_name}}</span>
+
+        </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <h2 *ngIf="articleResults.length == 0">No articles available in this section</h2>
+  <mat-card class="example-card" *ngFor="let article of articleResults">
+      <a href="{{article.url}}" target="_blank" style="text-decoration: none; color: black;"><mat-card-title-group>
+          <img mat-card-sm-image src="{{article.thumbnail_standard}}">
+              <mat-card-title class="title">{{article.title}}</mat-card-title>
+          <mat-card-subtitle>{{article.source}} - {{article.section}}</mat-card-subtitle>
+      </mat-card-title-group>
+      </a>
+    <mat-card-content>
+      <p>
+        {{article.abstract}} - <button mat-button (click)="addToReadLater(article)">Read Later</button>
+      </p>
+    </mat-card-content>
+    <mat-card-actions class="action-buttons">
+      <img mat-card-sm-image *ngFor="let media of article.multimedia" src="{{media.url}}" style="margin-right: 5px">
+    </mat-card-actions>
+  </mat-card>
+</mat-sidenav-container>
+  <mat-paginator
+    (page)="handlePageEvent($event)"
+    [length]="length"
+    [pageSize]="pageSize"
+    [showFirstLastButtons]="showFirstLastButtons"
+    [pageIndex]="pageIndex">
+  </mat-paginator>

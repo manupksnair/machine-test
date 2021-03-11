@@ -1,0 +1,10 @@
+#login{
+    background: green;
+    color: white;
+}
+.background-div mat-card{
+    padding: 0%;
+}
+.login-form{
+    padding: 10px;
+}

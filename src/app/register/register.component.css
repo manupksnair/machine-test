@@ -1,0 +1,10 @@
+#submit{
+    background: green;
+    color: white;
+}
+.background-div mat-card{
+    padding: 0%;
+}
+.register-form{
+    padding: 10px;
+}
